@@ -1,0 +1,5 @@
+data/
+pairings/
+src/credentials.json
+src/token.json
+src/quickstart.py
