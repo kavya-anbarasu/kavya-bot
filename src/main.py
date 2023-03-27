@@ -39,15 +39,20 @@ def main(args):
     if change_subject == "y":
         email_subject = input("Enter new subject line: ")
 
-    email_closing = "You may be going to Jersey Devil, but you are an angel <33 Please respond if you have any questions or comments. <br> <br> Happy psyching, <br> Kavya Bot"
+    email_closing = ("MWAHAHAHA you have probably noticed by now, but I have infiltrated all of the responses and \
+                     scrambled them up into anagrams. Good luck figuring out what your person wants now. MWAHAHAHA\
+                     But, because I am a ~benevolent bot~, if you really need help, respond to this email asking me\
+                     for help and I will send you the unscrambled version. <br> <br> HAPPY APRIL FOOLS (｀∀´)Ψ', <br> Kavya Bot")
     change_closing = input(f"This is the current closing: {email_closing}. Would you like to change it? (y/n) ")
     if change_closing == "y":
         email_closing = input("Enter new closing: ")
 
+    print(f"!!!!!!!!!{args.april_fools}")
     send_secrets_to_psychers(args.path_to_csv, tournament_name,
                              email_subject, email_closing, save_csv_path,
                              TESTING=args.test,
-                             MAKE_MANUAL_PAIRINGS=args.manual)
+                             MAKE_MANUAL_PAIRINGS=args.manual,
+                             APRIL_FOOLS=args.april_fools)
 
 
 if __name__ == "__main__":
@@ -55,5 +60,6 @@ if __name__ == "__main__":
     parser.add_argument("path_to_csv", type=str, help="Path to csv file")
     parser.add_argument("--test", action="store_true", help="Run in test mode")
     parser.add_argument("-mp", "--manual", nargs=2, action="append", help="List of tuples of psycher and secret psycher")  # noqa: E501
+    parser.add_argument("-af", "--april_fools", action="store_true", help="Run in april fools mode")  # noqa: E501
     args = parser.parse_args()
     main(args)

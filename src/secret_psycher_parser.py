@@ -46,7 +46,9 @@ def save_pairings_to_csv(pairings, path_to_csv):
 
 
 def send_secrets_to_psychers(path_to_csv, tournament_name, email_subject=None,
-                             email_closing=None, save_csv_path="./", TESTING=False, MAKE_MANUAL_PAIRINGS=None):
+                             email_closing=None, save_csv_path="./",
+                             TESTING=False, MAKE_MANUAL_PAIRINGS=None,
+                             APRIL_FOOLS=False):
     df = pd.read_csv(path_to_csv)
 
     if TESTING:  # create pairings but don't send emails
@@ -85,7 +87,13 @@ def send_secrets_to_psychers(path_to_csv, tournament_name, email_subject=None,
             if i < 3:
                 continue
             res = secrets[secret].item()
-            email_body += f"<b>{secret}</b> <br> {create_anagrams(res)}<br>"
+            if APRIL_FOOLS:
+                if i > secrets.shape[1] - 3:  # trying to preserve last two questions (allergies and other) # noqa: E501
+                    email_body += f"<b>{secret}</b> <br> {res}<br>"
+                else:
+                    email_body += f"<b>{secret}</b> <br> {create_anagrams(res)}<br>"  # noqa: E501
+            else:
+                email_body += f"<b>{secret}</b> <br> {res}<br>"
         email_body += "</p>"
         email_body += email_closing
 
