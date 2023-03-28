@@ -6,10 +6,9 @@ from secret_psycher_parser import send_secrets_to_psychers
 
 
 def main(args):
+    print(f"Current Configuration: {args}")
     tournament_name = input("Enter tournament name: ")
     season = input("Enter season: ")
-
-    print(args.manual)
 
     if(args.manual):
         save_csv_path = os.path.join(os.path.dirname(__file__), "../pairings",
@@ -24,9 +23,9 @@ def main(args):
         EMAIL_SUBJECT = input("Enter new subject line: ")
 
     EMAIL_CLOSING = ("MWAHAHAHA you have probably noticed by now, but I have infiltrated all of the responses and \
-                     scrambled them up into anagrams. Good luck figuring out what your person wants now. MWAHAHAHA\
-                     But, because I am a ~benevolent bot~, if you really need help, respond to this email asking me\
-                     for help and I will send you the unscrambled version. <br> <br> HAPPY APRIL FOOLS (｀∀´)Ψ', <br> Kavya Bot")
+                     scrambled them up into anagrams. Good luck figuring out what your person wants now. MWAHAHAHA!!!\
+                     But, because I am a ~benevolent bot~, if you respond to this email asking me\
+                     for help, I will send you the unscrambled version ;) <br> <br> HAPPY APRIL FOOLS (｀∀´)Ψ', <br> Kavya Bot")
     change_closing = input(f"This is the current closing: {EMAIL_CLOSING}. Would you like to change it? (y/n) ")
     if change_closing == "y":
         EMAIL_CLOSING = input("Enter new closing: ")

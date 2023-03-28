@@ -87,11 +87,13 @@ def send_secrets_to_psychers(path_to_csv, tournament_name, email_subject=None,
             if i < 3:
                 continue
             res = secrets[secret].item()
-            if APRIL_FOOLS:
-                if i > secrets.shape[1] - 3:  # trying to preserve last two questions (allergies and other) # noqa: E501
-                    email_body += f"<b>{secret}</b> <br> {res}<br>"
-                else:
-                    email_body += f"<b>{secret}</b> <br> {create_anagrams(res)}<br>"  # noqa: E501
+            if (APRIL_FOOLS and not (i > secrets.shape[1] - 3)):  # trying to preserve last two questions (allergies and other) # noqa: E501
+                try:
+                    res = create_anagrams(res)
+                except Exception:
+                    pass
+                finally:
+                    email_body += f"<b>{secret}</b> <br> {res}<br>"  # noqa: E501
             else:
                 email_body += f"<b>{secret}</b> <br> {res}<br>"
         email_body += "</p>"

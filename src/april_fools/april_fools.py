@@ -5,7 +5,7 @@ import random
 def create_anagrams(response):
     words = response.split(" ")
     anagrammed_response = []
-    punctionation_to_be_exclued = [".", ",", "!", "?", ":", ";", "(", ")"]
+    punctionation_to_be_exclued = [".", ",", "!", "?", ":", ";", "(", ")", "——", "-"]  # noqa: E501
     for word in words:
         anagram = ""
         punc_to_replace = {}
