@@ -18,6 +18,19 @@ def main(args):
         save_csv_path = os.path.join(os.path.dirname(__file__), "../pairings",
                                  f"{tournament_name}_{season}_pairings.csv")
 
+    EMAIL_SUBJECT = f"[sMITe] {tournament_name} Secret Psycher Assignment!"
+    change_subject = input(f"This is the current subject line: {EMAIL_SUBJECT}. Would you like to change it? (y/n) ")
+    if change_subject == "y":
+        EMAIL_SUBJECT = input("Enter new subject line: ")
+
+    EMAIL_CLOSING = ("MWAHAHAHA you have probably noticed by now, but I have infiltrated all of the responses and \
+                     scrambled them up into anagrams. Good luck figuring out what your person wants now. MWAHAHAHA\
+                     But, because I am a ~benevolent bot~, if you really need help, respond to this email asking me\
+                     for help and I will send you the unscrambled version. <br> <br> HAPPY APRIL FOOLS (｀∀´)Ψ', <br> Kavya Bot")
+    change_closing = input(f"This is the current closing: {EMAIL_CLOSING}. Would you like to change it? (y/n) ")
+    if change_closing == "y":
+        EMAIL_CLOSING = input("Enter new closing: ")
+
     if os.path.exists(save_csv_path):
         overwrite = input(f"File {save_csv_path} already exists, would you like to generate new pairings? (y/n) ")
         if overwrite == "y":
@@ -31,25 +44,24 @@ def main(args):
                     pairings = dict(reader)
                     print(f"Psycher {psycher} is psyching {pairings[psycher]}")
                     view_pairing = input("Would you like to view another existing pairing? (y/n) ")
+
+            send_another_email = input("Would you like to send another email? (y/n) ")
+            if send_another_email == "y":
+                psycher = input("Enter psycher email: ")
+                with open(save_csv_path, 'r') as f:
+                    reader = csv.reader(f)
+                    pairings = dict(reader)
+                    send_secrets_to_psychers(args.path_to_csv, tournament_name,
+                                            EMAIL_SUBJECT, EMAIL_CLOSING, save_csv_path,
+                                            TESTING=args.test,
+                                            MAKE_MANUAL_PAIRINGS=[[psycher, pairings[psycher]]],
+                                            APRIL_FOOLS=args.april_fools)
+
             print("Exiting...")
             return
 
-    email_subject = f"[sMITe] {tournament_name} Secret Psycher Assignment!"
-    change_subject = input(f"This is the current subject line: {email_subject}. Would you like to change it? (y/n) ")
-    if change_subject == "y":
-        email_subject = input("Enter new subject line: ")
-
-    email_closing = ("MWAHAHAHA you have probably noticed by now, but I have infiltrated all of the responses and \
-                     scrambled them up into anagrams. Good luck figuring out what your person wants now. MWAHAHAHA\
-                     But, because I am a ~benevolent bot~, if you really need help, respond to this email asking me\
-                     for help and I will send you the unscrambled version. <br> <br> HAPPY APRIL FOOLS (｀∀´)Ψ', <br> Kavya Bot")
-    change_closing = input(f"This is the current closing: {email_closing}. Would you like to change it? (y/n) ")
-    if change_closing == "y":
-        email_closing = input("Enter new closing: ")
-
-    print(f"!!!!!!!!!{args.april_fools}")
     send_secrets_to_psychers(args.path_to_csv, tournament_name,
-                             email_subject, email_closing, save_csv_path,
+                             EMAIL_SUBJECT, EMAIL_CLOSING, save_csv_path,
                              TESTING=args.test,
                              MAKE_MANUAL_PAIRINGS=args.manual,
                              APRIL_FOOLS=args.april_fools)
