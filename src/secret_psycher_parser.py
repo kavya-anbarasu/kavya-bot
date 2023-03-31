@@ -53,14 +53,14 @@ def send_secrets_to_psychers(path_to_csv, tournament_name, email_subject=None,
 
     if TESTING:  # create pairings but don't send emails
         pairings = make_pairings(df['Email Address'])
-        save_pairings_to_csv(pairings, save_csv_path)
+        # save_pairings_to_csv(pairings, save_csv_path)
         raise Exception("TESTING is True, not sending emails!")
 
     if MAKE_MANUAL_PAIRINGS:
         pairings = {}
         for pairing in MAKE_MANUAL_PAIRINGS:
             pairings[pairing[0]] = pairing[1]
-        save_pairings_to_csv(pairings, save_csv_path)
+        # save_pairings_to_csv(pairings, save_csv_path)
         # raise Exception("MANUAL PAIRING TESTING!")
 
     else:

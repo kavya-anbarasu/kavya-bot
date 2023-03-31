@@ -59,11 +59,16 @@ def main(args):
             print("Exiting...")
             return
 
-    send_secrets_to_psychers(args.path_to_csv, tournament_name,
-                             EMAIL_SUBJECT, EMAIL_CLOSING, save_csv_path,
-                             TESTING=args.test,
-                             MAKE_MANUAL_PAIRINGS=args.manual,
-                             APRIL_FOOLS=args.april_fools)
+    send_email = input("Would you like to send emails? (y/n) ")
+    if send_email == "y":
+        send_secrets_to_psychers(args.path_to_csv, tournament_name,
+                                EMAIL_SUBJECT, EMAIL_CLOSING, save_csv_path,
+                                TESTING=args.test,
+                                MAKE_MANUAL_PAIRINGS=args.manual,
+                                APRIL_FOOLS=args.april_fools)
+    else:
+        print("Exiting...")
+        return
 
 
 if __name__ == "__main__":
